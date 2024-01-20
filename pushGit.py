@@ -1,12 +1,12 @@
 import os
 import time
 
-def initialize_repository():
+def initialize_repository(commit_message="Initial commit"):
     if not os.path.isdir('.git'):
         print("Initializing a new Git repository...")
         os.system('git init')
         os.system('git add .')
-        os.system('git commit -m "Initial commit"')
+        os.system(f'git commit -m "{commit_message}"')
 
 def set_repository_url():
     if not os.popen('git remote get-url origin').read():
@@ -29,7 +29,8 @@ def commit_and_push():
     if os.system('git push origin main') != 0:
         os.system('git push origin main --force')
 
-initialize_repository()
+# Pass your desired initial commit message here
+initialize_repository(commit_message="Custom initial commit")
 set_repository_url()
 
 while True:
