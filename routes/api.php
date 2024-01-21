@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +21,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 //----------------------------------------- {Auth Module}
-Route::controller(RegisterController::class)->group(function(){
-    Route::post('register','register');
-    // Route::post('login','login');
-    // // Must Use Middleware To Check Is Login Becouse To Remove Token
-    // Route::post('logout','logout')->middleware('auth:sanctum');
-});
+Route::post('register',[RegisterController::class,'register']);
+Route::post('login',[LoginController::class,'login']);
