@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
@@ -23,3 +24,8 @@ use Illuminate\Support\Facades\Route;
 //----------------------------------------- {Auth Module}
 Route::post('register',[RegisterController::class,'register']);
 Route::post('login',[LoginController::class,'login']);
+
+Route::middleware(['auth:sanctum'])->group(function(){
+    Route::post('email-verification',[EmailVerificationController::class,'email_verification']);
+    Route::get('email-verification',[EmailVerificationController::class,'sendEmailVerification']);
+});

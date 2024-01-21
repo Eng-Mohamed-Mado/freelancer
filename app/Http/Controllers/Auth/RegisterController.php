@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Notifications\EmailVerificationNotification;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\Auth\RegistrationRequest;
@@ -33,6 +34,9 @@ class RegisterController extends Controller
         $success['token'] = $user->createToken('user',['app:all'])->plainTextToken;
         $success['name'] = $user->first_name;
         $success['success'] = true; 
+
+        // Send OTP After Registrations 
+        $user->notify(new EmailVerificationNotification());
         return ApiResponse::sendResponse(201, 'Add New User Successfully ',[$success]);
 
     }
